@@ -17,7 +17,13 @@ namespace Game.Flow
 
         public override void OnConnectedToMaster()
         {
-            Debug.Log("On Connected!");
+            Debug.Log("On Connected Server!");
+            PhotonNetwork.JoinLobby();
+        }
+
+        public override void OnJoinedLobby()
+        {
+            Debug.Log("On Joined Lobby!");
         }
     }
 }
