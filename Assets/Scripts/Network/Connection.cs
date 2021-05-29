@@ -15,7 +15,10 @@ namespace Network
         /// </summary>
         public void Connect()
         {
-            PhotonNetwork.ConnectUsingSettings();
+            if (!PhotonNetwork.ConnectUsingSettings())
+            {
+                Debug.LogError("Fuck!!");
+            }
         }
     }
 }
