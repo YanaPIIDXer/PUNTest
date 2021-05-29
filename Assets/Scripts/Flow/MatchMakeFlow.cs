@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-using ExitGames.Client.Photon;
+using UnityEngine.SceneManagement;
 
 namespace Game.Flow
 {
@@ -57,6 +57,7 @@ namespace Game.Flow
         {
             Debug.Log("Room Create Success!");
             Debug.Log("Name:" + PhotonNetwork.CurrentRoom.Name);
+            SceneManager.LoadScene("Game");
         }
 
         public override void OnCreateRoomFailed(short returnCode, string message)
@@ -68,6 +69,7 @@ namespace Game.Flow
         {
             Debug.Log("Room Join Success!");
             Debug.Log("Name:" + PhotonNetwork.CurrentRoom.Name);
+            SceneManager.LoadScene("Game");
         }
 
         public override void OnJoinRoomFailed(short returnCode, string message)
