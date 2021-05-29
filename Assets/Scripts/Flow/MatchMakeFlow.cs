@@ -13,9 +13,17 @@ namespace Game.Flow
     /// </summary>
     public class MatchMakeFlow : MonoBehaviourPunCallbacks
     {
-        async void Awake()
+        void Awake()
         {
             DontDestroyOnLoad(gameObject);
+        }
+
+        /// <summary>
+        /// 接続
+        /// FIXME:全ての処理が終わるまで固まるハズ
+        /// </summary>
+        public async void Connect()
+        {
             try
             {
                 await Pun2TaskNetwork.ConnectUsingSettingsAsync();
@@ -25,6 +33,19 @@ namespace Game.Flow
                 Debug.LogError(e.Message);
             }
             Debug.Log("On Connected Server!");
+
+            await Pun2TaskNetwork.JoinLobbyAsync();
+            Debug.Log("On Joined Lobby!");
+
+            try
+            {
+                SceneManager.LoadScene("Game");
+                await Pun2TaskNetwork.JoinOrCreateRoomAsync("TestRoom", new RoomOptions(), TypedLobby.Default);
+            }
+            catch (Pun2TaskNetwork.Pun2TaskException e)
+            {
+                Debug.LogError(e.Message);
+            }
         }
 
         // ↓本当はこんな残し方しちゃダメ

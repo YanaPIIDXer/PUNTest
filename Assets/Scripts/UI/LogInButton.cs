@@ -7,6 +7,7 @@ using UniRx;
 using UniRx.Triggers;
 using System;
 using Photon.Realtime;
+using Game.Flow;
 
 namespace Game.UI
 {
@@ -20,13 +21,19 @@ namespace Game.UI
         /// </summary>
         private Button MyButton = null;
 
+        /// <summary>
+        /// マッチメイクフロー
+        /// </summary>
+        [SerializeField]
+        private MatchMakeFlow MatchFlow = null;
+
         void Awake()
         {
             MyButton = GetComponent<Button>();
             MyButton.OnClickAsObservable()
                 .Subscribe((_) =>
                 {
-                    PhotonNetwork.ConnectUsingSettings();
+                    MatchFlow.Connect();
                     MyButton.interactable = false;
                 })
                 .AddTo(gameObject);
