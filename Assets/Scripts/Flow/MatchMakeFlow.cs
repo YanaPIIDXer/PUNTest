@@ -5,8 +5,6 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.SceneManagement;
 using Pun2Task;
-using UniRx;
-using Cysharp.Threading.Tasks;
 
 namespace Game.Flow
 {
@@ -23,21 +21,30 @@ namespace Game.Flow
         /// <summary>
         /// 接続
         /// </summary>
-        public void Connect()
+        public async void Connect()
         {
-            Pun2TaskNetwork.ConnectUsingSettingsAsync().ToObservable()
-                .Subscribe((_) =>
-                {
-                    Debug.Log("On Connected Server!");
-                    Pun2TaskNetwork.JoinLobbyAsync().ToObservable()
-                        .Subscribe((__) =>
-                        {
-                            Debug.Log("On Joined Lobby!");
-                            SceneManager.LoadScene("Game");
-                            Pun2TaskNetwork.JoinOrCreateRoomAsync("TestRoom", new RoomOptions(), TypedLobby.Default).ToObservable()
-                                .Subscribe((___) => { }, (e) => Debug.LogError(e.Message)).AddTo(gameObject);
-                        }, (e) => Debug.LogError(e.Message)).AddTo(gameObject);
-                }, (e) => Debug.LogError(e.Message)).AddTo(gameObject);
+            try
+            {
+                await Pun2TaskNetwork.ConnectUsingSettingsAsync();
+            }
+            catch (Pun2TaskNetwork.ConnectionFailedException e)
+            {
+                Debug.LogError(e.Message);
+            }
+            Debug.Log("On Connected Server!");
+
+            await Pun2TaskNetwork.JoinLobbyAsync();
+            Debug.Log("On Joined Lobby!");
+
+            try
+            {
+                SceneManager.LoadScene("Game");
+                await Pun2TaskNetwork.JoinOrCreateRoomAsync("TestRoom", new RoomOptions(), TypedLobby.Default);
+            }
+            catch (Pun2TaskNetwork.Pun2TaskException e)
+            {
+                Debug.LogError(e.Message);
+            }
         }
 
         // ↓本当はこんな残し方しちゃダメ
