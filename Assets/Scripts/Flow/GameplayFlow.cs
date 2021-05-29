@@ -12,7 +12,7 @@ namespace Game.Flow
     {
         void Awake()
         {
-            PhotonNetwork.Instantiate("Prefabs/Player", Vector3.zero, Quaternion.identity);
+            PhotonNetwork.Instantiate("Prefabs/Player", new Vector3(0.0f, 0.5f, 0.0f), Quaternion.identity);
         }
     }
 }

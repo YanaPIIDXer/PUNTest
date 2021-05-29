@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 namespace Game.Player
 {
@@ -20,9 +21,15 @@ namespace Game.Player
         /// </summary>
         private Rigidbody Body = null;
 
+        /// <summary>
+        /// PhotonView
+        /// </summary>
+        private PhotonView View = null;
+
         void Awake()
         {
             Body = GetComponent<Rigidbody>();
+            View = GetComponent<PhotonView>();
         }
 
         void Update()
@@ -33,7 +40,10 @@ namespace Game.Player
 
         void FixedUpdate()
         {
-            Body.velocity = new Vector3(MoveVector.x, 0.0f, MoveVector.y);
+            if (View.IsMine)
+            {
+                Body.velocity = new Vector3(MoveVector.x, 0.0f, MoveVector.y);
+            }
         }
     }
 }
