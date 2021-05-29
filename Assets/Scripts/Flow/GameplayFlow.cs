@@ -11,7 +11,7 @@ namespace Game.Flow
     public class GameplayFlow : MonoBehaviourPunCallbacks
     {
         // ↓元々はMatchMakeFlowのOnJoinedRoom()のタイミングでシーン切り替え→コイツが呼ばれるという流れだったが、
-        //  このタイミングで生成しようとすると死ぬらしい
+        //  このタイミングで生成しようとすると死ぬ（他人のルームに入った側が、ルーム作成側を認識できない？）らしい
         /*
         void Awake()
         {
