@@ -24,6 +24,26 @@ namespace Game.Flow
         public override void OnJoinedLobby()
         {
             Debug.Log("On Joined Lobby!");
+            Debug.Log("RoomCount:" + PhotonNetwork.CountOfRooms);
+            if (PhotonNetwork.CountOfRooms == 0)
+            {
+                PhotonNetwork.CreateRoom("TestRoom");
+            }
+            else
+            {
+                // TOOD:適当に入る処理
+            }
+        }
+
+        public override void OnCreatedRoom()
+        {
+            Debug.Log("Room Create Success!");
+            Debug.Log("Name:" + PhotonNetwork.CurrentRoom.Name);
+        }
+
+        public override void OnCreateRoomFailed(short returnCode, string message)
+        {
+            Debug.LogError("Create Room Failed. Message:" + message);
         }
     }
 }
