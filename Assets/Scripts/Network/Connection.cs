@@ -20,5 +20,15 @@ namespace Network
                 Debug.LogError("Fuck!!");
             }
         }
+
+        public override void OnConnected()
+        {
+            Debug.Log("OnConnected()");
+        }
+
+        public override void OnConnectedToMaster()
+        {
+            Debug.Log("OnConnectedToMaster()");
+        }
     }
 }
