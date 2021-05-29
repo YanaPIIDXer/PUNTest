@@ -7,6 +7,8 @@ namespace Network
 {
     /// <summary>
     /// 接続クラス
+    /// ※恐らくMonoBehaviourPunCallbacksなオブジェクトが登場すると、「PhotonMono」というシーンを跨いでも死なないオブジェクトが生成され、
+    /// 　そいつが実際のコネクションを管理しているのかと思われる。
     /// </summary>
     public class Connection : MonoBehaviourPunCallbacks
     {
