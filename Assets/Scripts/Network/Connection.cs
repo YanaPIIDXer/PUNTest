@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-namespace Network
+namespace Game.Network
 {
     /// <summary>
     /// 接続クラス
