@@ -37,6 +37,7 @@ namespace Game.Flow
             Debug.Log("RoomCount:" + PhotonNetwork.CountOfRooms);
             if (PhotonNetwork.CountOfRooms == 0)
             {
+                SceneManager.LoadScene("Game");
                 PhotonNetwork.CreateRoom("TestRoom");
             }
         }
@@ -57,6 +58,7 @@ namespace Game.Flow
 
             if (Join != null)
             {
+                SceneManager.LoadScene("Game");
                 PhotonNetwork.JoinRoom(Join.Name);
             }
         }
@@ -78,7 +80,6 @@ namespace Game.Flow
         {
             Debug.Log("Room Join Success!");
             Debug.Log("Name:" + PhotonNetwork.CurrentRoom.Name);
-            SceneManager.LoadScene("Game");
         }
 
         public override void OnJoinRoomFailed(short returnCode, string message)
