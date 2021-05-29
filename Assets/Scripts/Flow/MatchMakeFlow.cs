@@ -8,9 +8,9 @@ using ExitGames.Client.Photon;
 namespace Game.Flow
 {
     /// <summary>
-    /// ゲームフロー管理クラス
+    /// マッチメイクフロー管理クラス
     /// </summary>
-    public class GameFlow : MonoBehaviourPunCallbacks
+    public class MatchMakeFlow : MonoBehaviourPunCallbacks
     {
         void Awake()
         {
