@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.SceneManagement;
+using Pun2Task;
 
 namespace Game.Flow
 {
@@ -12,9 +13,18 @@ namespace Game.Flow
     /// </summary>
     public class MatchMakeFlow : MonoBehaviourPunCallbacks
     {
-        void Awake()
+        async void Awake()
         {
             DontDestroyOnLoad(gameObject);
+            try
+            {
+                await Pun2TaskNetwork.ConnectUsingSettingsAsync();
+            }
+            catch (Pun2TaskNetwork.ConnectionFailedException e)
+            {
+                Debug.LogError(e.Message);
+            }
+            Debug.Log("On Connected Server!");
         }
 
         // ↓本当はこんな残し方しちゃダメ
