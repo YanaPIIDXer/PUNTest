@@ -9,7 +9,7 @@ namespace Game.Player
     /// プレイヤー移動Component
     /// </summary>
     [RequireComponent(typeof(Rigidbody))]
-    public class PlayerMove : MonoBehaviour, IPunObservable
+    public class PlayerMove : MonoBehaviour, IPunObservable, IPunInstantiateMagicCallback
     {
         /// <summary>
         /// 移動ベクトル
@@ -58,6 +58,15 @@ namespace Game.Player
                 Vector3 Pos = Vector3.zero;
                 stream.Serialize(ref Pos);
                 transform.position = Pos;
+            }
+        }
+
+        public void OnPhotonInstantiate(PhotonMessageInfo info)
+        {
+            Debug.Log("PhotonView ID:" + info.photonView.ViewID);
+            if (info.photonView.IsMine)
+            {
+                Debug.Log(" (Mine)");
             }
         }
     }
