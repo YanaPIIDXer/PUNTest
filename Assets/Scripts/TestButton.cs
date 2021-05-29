@@ -6,6 +6,7 @@ using UniRx.Triggers;
 using System;
 using UnityEngine.UI;
 using Network;
+using Photon.Pun;
 
 /// <summary>
 /// 実験用ボタン
@@ -13,16 +14,10 @@ using Network;
 /// </summary>
 public class TestButton : MonoBehaviour
 {
-    /// <summary>
-    /// 接続オブジェクト
-    /// </summary>
-    [SerializeField]
-    private Connection Conn = null;
-
     void Awake()
     {
         GetComponent<Button>().OnClickAsObservable()
-            .Subscribe((_) => Conn.Connect())
+            .Subscribe((_) => PhotonNetwork.ConnectUsingSettings())
             .AddTo(gameObject);
     }
 }
