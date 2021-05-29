@@ -17,6 +17,11 @@ namespace Game.Flow
             DontDestroyOnLoad(gameObject);
         }
 
+        public override void OnDisconnected(DisconnectCause cause)
+        {
+            Debug.LogError("Disconnected... Reason:" + cause.ToString());
+        }
+
         public override void OnConnectedToMaster()
         {
             Debug.Log("On Connected Server!");
