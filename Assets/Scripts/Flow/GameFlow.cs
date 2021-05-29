@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
+using ExitGames.Client.Photon;
 
 namespace Game.Flow
 {
@@ -29,9 +31,25 @@ namespace Game.Flow
             {
                 PhotonNetwork.CreateRoom("TestRoom");
             }
-            else
+        }
+
+        public override void OnRoomListUpdate(List<RoomInfo> roomList)
+        {
+            Debug.Log("OnUpdateRoomList Count:" + roomList.Count);
+            RoomInfo Join = null;
+            foreach (var Room in roomList)
             {
-                // TOOD:適当に入る処理
+                Debug.Log(Room.Name);
+                if (Join == null)
+                {
+                    // とりあえず最初の部屋に突っ込む
+                    Join = Room;
+                }
+            }
+
+            if (Join != null)
+            {
+                PhotonNetwork.JoinRoom(Join.Name);
             }
         }
 
@@ -44,6 +62,17 @@ namespace Game.Flow
         public override void OnCreateRoomFailed(short returnCode, string message)
         {
             Debug.LogError("Create Room Failed. Message:" + message);
+        }
+
+        public override void OnJoinedRoom()
+        {
+            Debug.Log("Room Join Success!");
+            Debug.Log("Name:" + PhotonNetwork.CurrentRoom.Name);
+        }
+
+        public override void OnJoinRoomFailed(short returnCode, string message)
+        {
+            Debug.LogError("Join Room Failed. Message:" + message);
         }
     }
 }
