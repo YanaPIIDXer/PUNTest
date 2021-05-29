@@ -17,6 +17,9 @@ namespace Game.Flow
             DontDestroyOnLoad(gameObject);
         }
 
+        // ↓本当はこんな残し方しちゃダメ
+        //  Pun2Taskとの比較用にあえて残してある
+#if false
         public override void OnDisconnected(DisconnectCause cause)
         {
             if (cause != DisconnectCause.DisconnectByClientLogic)       // ←PlayModeを終了した時もコレが飛んでくる
@@ -86,5 +89,6 @@ namespace Game.Flow
         {
             Debug.LogError("Join Room Failed. Message:" + message);
         }
+#endif
     }
 }
