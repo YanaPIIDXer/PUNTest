@@ -19,7 +19,10 @@ namespace Game.Flow
 
         public override void OnDisconnected(DisconnectCause cause)
         {
-            Debug.LogError("Disconnected... Reason:" + cause.ToString());
+            if (cause != DisconnectCause.DisconnectByClientLogic)       // ←PlayModeを終了した時もコレが飛んでくる
+            {
+                Debug.LogError("Disconnected... Reason:" + cause.ToString());
+            }
         }
 
         public override void OnConnectedToMaster()
