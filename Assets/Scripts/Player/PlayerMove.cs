@@ -9,7 +9,7 @@ namespace Game.Player
     /// プレイヤー移動Component
     /// </summary>
     [RequireComponent(typeof(Rigidbody))]
-    public class PlayerMove : MonoBehaviour
+    public class PlayerMove : MonoBehaviour, IPunObservable
     {
         /// <summary>
         /// 移動ベクトル
@@ -43,6 +43,21 @@ namespace Game.Player
             if (View.IsMine)
             {
                 Body.velocity = new Vector3(MoveVector.x, 0.0f, MoveVector.y);
+            }
+        }
+
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            if (stream.IsWriting)
+            {
+                Vector3 Pos = transform.position;
+                stream.Serialize(ref Pos);
+            }
+            else
+            {
+                Vector3 Pos = Vector3.zero;
+                stream.Serialize(ref Pos);
+                transform.position = Pos;
             }
         }
     }
