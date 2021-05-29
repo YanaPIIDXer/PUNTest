@@ -65,7 +65,8 @@ namespace Game.Flow
         {
             Debug.Log("Room Create Success!");
             Debug.Log("Name:" + PhotonNetwork.CurrentRoom.Name);
-            SceneManager.LoadScene("Game");
+            // ↓注意：OnCreatedRoomの直後、勝手にOnJoinedRoomが呼ばれるフロー
+            //SceneManager.LoadScene("Game");
         }
 
         public override void OnCreateRoomFailed(short returnCode, string message)
